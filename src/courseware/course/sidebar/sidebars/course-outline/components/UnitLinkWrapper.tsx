@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import { useCourseOutlineSidebar } from '../hooks';
 
@@ -27,14 +27,10 @@ const UnitLinkWrapper: React.FC<Props> = ({
   children,
 }) => {
   const { handleUnitClick } = useCourseOutlineSidebar();
-  const { pathname } = useLocation();
-  const isPreview = pathname.startsWith('/preview');
-  const baseUrl = `/course/${courseId}/${sequenceId}/${id}`;
-  const link = isPreview ? `/preview${baseUrl}` : baseUrl;
 
   return (
     <Link
-      to={link}
+      to={`/course/${courseId}/${sequenceId}/${id}`}
       className="row w-100 m-0 d-flex align-items-center text-gray-700"
       onClick={() => handleUnitClick({ sequenceId, activeUnitId, id })}
     >

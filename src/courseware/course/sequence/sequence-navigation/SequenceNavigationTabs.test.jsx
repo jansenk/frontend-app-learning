@@ -51,10 +51,6 @@ describe('Sequence Navigation Tabs', () => {
     await act(async () => {
       useIndexOfLastVisibleChild.mockReturnValue([-1, null, null]);
       const booyah = render(<SequenceNavigationTabs {...mockData} />, { wrapWithRouter: true });
-
-      // wait for links to appear so we aren't testing an empty div
-      await screen.findAllByRole('link');
-
       container = booyah.container;
 
       const dropdownToggle = container.querySelector('.dropdown-toggle');

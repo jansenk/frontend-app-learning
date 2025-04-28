@@ -154,7 +154,7 @@ describe('Sequence', () => {
     testStore.dispatch(fetchSequenceFailure({ sequenceId: mockData.sequenceId }));
     render(<Sequence {...mockData} />, { store: testStore, wrapWithRouter: true });
 
-    await screen.findByText('There was an error loading this course.');
+    expect(screen.getByText('There was an error loading this course.')).toBeInTheDocument();
   });
 
   it('handles loading unit', async () => {

@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import messages from './messages';
 
 const FormattedPricing = (props) => {
-  const intl = useIntl();
   const {
     inline,
+    intl,
     offer,
     verifiedMode,
   } = props;
@@ -67,6 +67,7 @@ FormattedPricing.defaultProps = {
 
 FormattedPricing.propTypes = {
   inline: PropTypes.bool,
+  intl: intlShape.isRequired,
   offer: PropTypes.shape({
     discountedPrice: PropTypes.string.isRequired,
     originalPrice: PropTypes.string.isRequired,
@@ -79,4 +80,4 @@ FormattedPricing.propTypes = {
   }),
 };
 
-export default FormattedPricing;
+export default injectIntl(FormattedPricing);

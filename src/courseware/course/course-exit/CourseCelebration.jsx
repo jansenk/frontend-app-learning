@@ -2,7 +2,9 @@ import React, { useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLinkedinIn } from '@fortawesome/free-brands-svg-icons';
 
-import { FormattedDate, FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
+import {
+  FormattedDate, FormattedMessage, injectIntl, intlShape,
+} from '@edx/frontend-platform/i18n';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import {
@@ -34,8 +36,7 @@ import CourseRecommendationsSlot from '../../../plugin-slots/CourseRecommendatio
 
 const LINKEDIN_BLUE = '#2867B2';
 
-const CourseCelebration = () => {
-  const intl = useIntl();
+const CourseCelebration = ({ intl }) => {
   const wideScreen = useWindowSize().width >= breakpoints.medium.minWidth;
   const { courseId } = useSelector(state => state.courseware);
   const dispatch = useDispatch();
@@ -363,4 +364,8 @@ const CourseCelebration = () => {
   );
 };
 
-export default CourseCelebration;
+CourseCelebration.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CourseCelebration);

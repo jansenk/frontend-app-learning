@@ -1,14 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import DateSummary from '../DateSummary';
 import messages from '../messages';
 import { useModel } from '../../../generic/model-store';
 
-const CourseDates = () => {
-  const intl = useIntl();
+const CourseDates = ({
+  intl,
+}) => {
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -47,4 +48,8 @@ const CourseDates = () => {
   );
 };
 
-export default CourseDates;
+CourseDates.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CourseDates);

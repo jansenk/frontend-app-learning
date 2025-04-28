@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Tabs, Tab } from '@openedx/paragon';
 
 import { useParams } from 'react-router';
@@ -13,8 +13,7 @@ const filterTypes = ['text', 'video', 'sequence'];
 const filterOther = 'other';
 const validFilters = [filterAll, ...filterTypes, filterOther];
 
-export const CoursewareSearchResultsFilter = () => {
-  const intl = useIntl();
+export const CoursewareSearchResultsFilter = ({ intl }) => {
   const { courseId } = useParams();
   const lastSearch = useModel('contentSearchResults', courseId);
   const { filter: filterKeyword, setFilter } = useCoursewareSearchParams();
@@ -74,4 +73,8 @@ export const CoursewareSearchResultsFilter = () => {
   );
 };
 
-export default CoursewareSearchResultsFilter;
+CoursewareSearchResultsFilter.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CoursewareSearchResultsFilter);

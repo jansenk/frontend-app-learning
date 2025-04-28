@@ -4,7 +4,7 @@ import { getConfig } from '@edx/frontend-platform';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import {
-  FormattedMessage, useIntl, defineMessages,
+  FormattedMessage, injectIntl, intlShape, defineMessages,
 } from '@edx/frontend-platform/i18n';
 import { useSelector, useDispatch } from 'react-redux';
 import {
@@ -64,8 +64,8 @@ const CourseCard = ({
     marketingUrl,
     onClick,
   },
+  intl,
 }) => {
-  const intl = useIntl();
   const formatList = (items, style) => (
     items.join(intl.formatMessage(
       messages.listJoin,
@@ -127,12 +127,12 @@ CourseCard.propTypes = {
     })),
     onClick: PropTypes.func,
   }).isRequired,
+  intl: intlShape.isRequired,
 };
 
-const IntlCard = CourseCard;
+const IntlCard = injectIntl(CourseCard);
 
-const CourseRecommendations = ({ variant }) => {
-  const intl = useIntl();
+const CourseRecommendations = ({ intl, variant }) => {
   const { courseId, recommendationsStatus } = useSelector(state => ({ ...state.recommendations, ...state.courseware }));
   const { recommendations } = useModel('coursewareMeta', courseId);
   const { org, number } = useModel('courseHomeMeta', courseId);
@@ -205,7 +205,8 @@ const CourseRecommendations = ({ variant }) => {
 };
 
 CourseRecommendations.propTypes = {
+  intl: intlShape.isRequired,
   variant: PropTypes.string.isRequired,
 };
 
-export default CourseRecommendations;
+export default injectIntl(CourseRecommendations);

@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage } from '@edx/frontend-platform/i18n';
+import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 
 import FormattedPricing from './FormattedPricing';
 
 const UpgradeNowButton = (props) => {
   const {
+    intl,
     offer,
     variant,
     onClick,
@@ -47,6 +48,7 @@ UpgradeNowButton.defaultProps = {
 };
 
 UpgradeNowButton.propTypes = {
+  intl: intlShape.isRequired,
   offer: PropTypes.shape({
     upgradeUrl: PropTypes.string.isRequired,
   }),
@@ -57,4 +59,4 @@ UpgradeNowButton.propTypes = {
   variant: PropTypes.string,
 };
 
-export default UpgradeNowButton;
+export default injectIntl(UpgradeNowButton);

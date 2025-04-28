@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { getConfig } from '@edx/frontend-platform';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 import { useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
@@ -15,8 +15,7 @@ import { unsubscribeFromGoalReminders } from './data/thunks';
 
 import { useModel } from '../../../generic/model-store';
 
-const CourseExit = () => {
-  const intl = useIntl();
+const CourseExit = ({ intl }) => {
   const { courseId } = useSelector(state => state.courseware);
   const {
     certificateData,
@@ -77,4 +76,8 @@ const CourseExit = () => {
   );
 };
 
-export default CourseExit;
+CourseExit.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CourseExit);

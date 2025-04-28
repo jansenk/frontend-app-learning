@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import camelCase from 'lodash.camelcase';
 
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 
 import messages from '../messages';
@@ -10,8 +10,7 @@ import { getProctoringInfoData } from '../../data/api';
 import { fetchProctoringInfoResolved } from '../../data/slice';
 import { useModel } from '../../../generic/model-store';
 
-const ProctoringInfoPanel = () => {
-  const intl = useIntl();
+const ProctoringInfoPanel = ({ intl }) => {
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -217,4 +216,8 @@ const ProctoringInfoPanel = () => {
   );
 };
 
-export default ProctoringInfoPanel;
+ProctoringInfoPanel.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(ProctoringInfoPanel);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import messages from './messages';
 import Timeline from './timeline/Timeline';
@@ -14,8 +14,7 @@ import ShiftDatesAlert from '../suggested-schedule-messaging/ShiftDatesAlert';
 import UpgradeToCompleteAlert from '../suggested-schedule-messaging/UpgradeToCompleteAlert';
 import UpgradeToShiftDatesAlert from '../suggested-schedule-messaging/UpgradeToShiftDatesAlert';
 
-const DatesTab = () => {
-  const intl = useIntl();
+const DatesTab = ({ intl }) => {
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -60,4 +59,8 @@ const DatesTab = () => {
   );
 };
 
-export default DatesTab;
+DatesTab.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(DatesTab);

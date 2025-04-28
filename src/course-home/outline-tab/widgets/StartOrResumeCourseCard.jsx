@@ -1,14 +1,13 @@
 import React from 'react';
 import { Button, Card } from '@openedx/paragon';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import { useSelector } from 'react-redux';
 import { sendTrackingLogEvent } from '@edx/frontend-platform/analytics';
 import messages from '../messages';
 import { useModel } from '../../../generic/model-store';
 
-const StartOrResumeCourseCard = () => {
-  const intl = useIntl();
+const StartOrResumeCourseCard = ({ intl }) => {
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -63,4 +62,8 @@ const StartOrResumeCourseCard = () => {
   );
 };
 
-export default StartOrResumeCourseCard;
+StartOrResumeCourseCard.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(StartOrResumeCourseCard);

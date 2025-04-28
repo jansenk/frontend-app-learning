@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button, Icon } from '@openedx/paragon';
 import { Compass } from '@openedx/paragon/icons';
 
@@ -12,8 +12,7 @@ import { useModel } from '../../generic/model-store';
 import { launchCourseHomeTour } from '../data/slice';
 import messages from '../messages';
 
-const LaunchCourseHomeTourButton = ({ srOnly }) => {
-  const intl = useIntl();
+const LaunchCourseHomeTourButton = ({ intl, srOnly }) => {
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -64,7 +63,8 @@ LaunchCourseHomeTourButton.defaultProps = {
 };
 
 LaunchCourseHomeTourButton.propTypes = {
+  intl: intlShape.isRequired,
   srOnly: PropTypes.bool,
 };
 
-export default LaunchCourseHomeTourButton;
+export default injectIntl(LaunchCourseHomeTourButton);

@@ -1,4 +1,5 @@
 import { getConfig } from '@edx/frontend-platform';
+import { injectIntl } from '@edx/frontend-platform/i18n';
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useParams, generatePath, useNavigate } from 'react-router-dom';
@@ -29,4 +30,6 @@ const DiscussionTab = () => {
   );
 };
 
-export default DiscussionTab;
+DiscussionTab.propTypes = {};
+
+export default injectIntl(DiscussionTab);

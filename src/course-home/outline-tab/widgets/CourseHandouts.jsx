@@ -1,14 +1,13 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import LmsHtmlFragment from '../LmsHtmlFragment';
 import messages from '../messages';
 import { useModel } from '../../../generic/model-store';
 
-const CourseHandouts = () => {
-  const intl = useIntl();
+const CourseHandouts = ({ intl }) => {
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -32,4 +31,8 @@ const CourseHandouts = () => {
   );
 };
 
-export default CourseHandouts;
+CourseHandouts.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CourseHandouts);

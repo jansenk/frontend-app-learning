@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button, Icon } from '@openedx/paragon';
 import { ChevronRight as ChevronRightIcon } from '@openedx/paragon/icons';
 
@@ -8,8 +8,7 @@ import courseOutlineMessages from '@src/course-home/outline-tab/messages';
 import CompletionIcon from './CompletionIcon';
 import { useCourseOutlineSidebar } from '../hooks';
 
-const SidebarSection = ({ section, handleSelectSection }) => {
-  const intl = useIntl();
+const SidebarSection = ({ intl, section, handleSelectSection }) => {
   const {
     id,
     complete,
@@ -55,6 +54,7 @@ const SidebarSection = ({ section, handleSelectSection }) => {
 };
 
 SidebarSection.propTypes = {
+  intl: intlShape.isRequired,
   section: PropTypes.shape({
     complete: PropTypes.bool,
     id: PropTypes.string,
@@ -68,4 +68,4 @@ SidebarSection.propTypes = {
   handleSelectSection: PropTypes.func.isRequired,
 };
 
-export default SidebarSection;
+export default injectIntl(SidebarSection);

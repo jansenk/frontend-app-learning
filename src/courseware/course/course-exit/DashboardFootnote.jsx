@@ -3,7 +3,9 @@ import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
-import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
+import {
+  FormattedMessage, injectIntl, intlShape,
+} from '@edx/frontend-platform/i18n';
 import { Hyperlink } from '@openedx/paragon';
 import { faCalendarAlt } from '@fortawesome/free-regular-svg-icons';
 import { getConfig } from '@edx/frontend-platform';
@@ -14,8 +16,7 @@ import Footnote from './Footnote';
 import messages from './messages';
 import { logClick } from './utils';
 
-const DashboardFootnote = ({ variant }) => {
-  const intl = useIntl();
+const DashboardFootnote = ({ intl, variant }) => {
   const { courseId } = useSelector(state => state.courseware);
   const { org } = useModel('courseHomeMeta', courseId);
   const { administrator } = getAuthenticatedUser();
@@ -47,7 +48,8 @@ const DashboardFootnote = ({ variant }) => {
 };
 
 DashboardFootnote.propTypes = {
+  intl: intlShape.isRequired,
   variant: PropTypes.string.isRequired,
 };
 
-export default DashboardFootnote;
+export default injectIntl(DashboardFootnote);

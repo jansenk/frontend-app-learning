@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import messages from '../messages';
 import UnitIcon, { UNIT_ICON_TYPES } from './UnitIcon';
@@ -8,6 +8,7 @@ import UnitLinkWrapper from './UnitLinkWrapper';
 
 const SidebarUnit = ({
   id,
+  intl,
   courseId,
   sequenceId,
   isFirst,
@@ -16,7 +17,6 @@ const SidebarUnit = ({
   isLocked,
   activeUnitId,
 }) => {
-  const intl = useIntl();
   const {
     complete,
     title,
@@ -52,6 +52,7 @@ const SidebarUnit = ({
 };
 
 SidebarUnit.propTypes = {
+  intl: intlShape.isRequired,
   id: PropTypes.string.isRequired,
   isFirst: PropTypes.bool.isRequired,
   unit: PropTypes.shape({
@@ -68,4 +69,4 @@ SidebarUnit.propTypes = {
   activeUnitId: PropTypes.string.isRequired,
 };
 
-export default SidebarUnit;
+export default injectIntl(SidebarUnit);

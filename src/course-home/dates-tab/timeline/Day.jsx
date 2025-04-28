@@ -5,7 +5,8 @@ import { useSelector } from 'react-redux';
 import {
   FormattedDate,
   FormattedTime,
-  useIntl,
+  injectIntl,
+  intlShape,
 } from '@edx/frontend-platform/i18n';
 import { Tooltip, OverlayTrigger } from '@openedx/paragon';
 import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
@@ -19,10 +20,10 @@ import { isLearnerAssignment } from '../utils';
 const Day = ({
   date,
   first,
+  intl,
   items,
   last,
 }) => {
-  const intl = useIntl();
   const {
     courseId,
   } = useSelector(state => state.courseHome);
@@ -107,6 +108,7 @@ const Day = ({
 Day.propTypes = {
   date: PropTypes.objectOf(Date).isRequired,
   first: PropTypes.bool,
+  intl: intlShape.isRequired,
   items: PropTypes.arrayOf(PropTypes.shape({
     date: PropTypes.string,
     dateType: PropTypes.string,
@@ -124,4 +126,4 @@ Day.defaultProps = {
   last: false,
 };
 
-export default Day;
+export default injectIntl(Day);

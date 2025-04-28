@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 
 import EffortEstimate from '../../../../shared/effort-estimate';
 import { sequenceIdsSelector } from '../../../data';
@@ -24,10 +24,10 @@ import messages from './messages';
 
 const UnitNavigationEffortEstimate = ({
   children,
+  intl,
   sequenceId,
   unitId,
 }) => {
-  const intl = useIntl();
   const sequenceIds = useSelector(sequenceIdsSelector);
   const sequenceIndex = sequenceIds.indexOf(sequenceId);
   const nextSequenceId = sequenceIndex < sequenceIds.length - 1 ? sequenceIds[sequenceIndex + 1] : null;
@@ -59,6 +59,7 @@ const UnitNavigationEffortEstimate = ({
 
 UnitNavigationEffortEstimate.propTypes = {
   children: PropTypes.node,
+  intl: intlShape.isRequired,
   sequenceId: PropTypes.string.isRequired,
   unitId: PropTypes.string,
 };
@@ -68,4 +69,4 @@ UnitNavigationEffortEstimate.defaultProps = {
   unitId: null,
 };
 
-export default UnitNavigationEffortEstimate;
+export default injectIntl(UnitNavigationEffortEstimate);

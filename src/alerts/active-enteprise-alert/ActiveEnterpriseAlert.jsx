@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
+import { FormattedMessage, injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import PropTypes from 'prop-types';
 import { Alert, Hyperlink } from '@openedx/paragon';
 import { WarningFilled } from '@openedx/paragon/icons';
@@ -7,8 +7,7 @@ import { WarningFilled } from '@openedx/paragon/icons';
 import { getConfig } from '@edx/frontend-platform';
 import genericMessages from './messages';
 
-const ActiveEnterpriseAlert = ({ payload }) => {
-  const intl = useIntl();
+const ActiveEnterpriseAlert = ({ intl, payload }) => {
   const { text, courseId } = payload;
   const changeActiveEnterprise = (
     <Hyperlink
@@ -39,10 +38,11 @@ const ActiveEnterpriseAlert = ({ payload }) => {
 };
 
 ActiveEnterpriseAlert.propTypes = {
+  intl: intlShape.isRequired,
   payload: PropTypes.shape({
     text: PropTypes.string,
     courseId: PropTypes.string,
   }).isRequired,
 };
 
-export default ActiveEnterpriseAlert;
+export default injectIntl(ActiveEnterpriseAlert);

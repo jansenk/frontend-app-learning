@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape, FormattedMessage } from '@edx/frontend-platform/i18n';
 import { Alert, Hyperlink } from '@openedx/paragon';
 import { Info } from '@openedx/paragon/icons';
 
@@ -8,8 +8,7 @@ import { useModel } from '../../../../generic/model-store';
 
 import messages from './messages';
 
-const HiddenAfterDue = ({ courseId }) => {
-  const intl = useIntl();
+const HiddenAfterDue = ({ courseId, intl }) => {
   const { tabs } = useModel('courseHomeMeta', courseId);
 
   const progressTab = tabs.find(tab => tab.slug === 'progress');
@@ -45,7 +44,8 @@ const HiddenAfterDue = ({ courseId }) => {
 };
 
 HiddenAfterDue.propTypes = {
+  intl: intlShape.isRequired,
   courseId: PropTypes.string.isRequired,
 };
 
-export default HiddenAfterDue;
+export default injectIntl(HiddenAfterDue);

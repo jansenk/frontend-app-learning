@@ -3,15 +3,14 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 
 import messages from './messages';
 
 const ContentLock = ({
-  courseId, prereqSectionName, prereqId, sequenceTitle,
+  intl, courseId, prereqSectionName, prereqId, sequenceTitle,
 }) => {
-  const intl = useIntl();
   const navigate = useNavigate();
   const handleClick = useCallback(() => {
     navigate(`/course/${courseId}/${prereqId}`);
@@ -37,9 +36,10 @@ const ContentLock = ({
   );
 };
 ContentLock.propTypes = {
+  intl: intlShape.isRequired,
   courseId: PropTypes.string.isRequired,
   prereqSectionName: PropTypes.string.isRequired,
   prereqId: PropTypes.string.isRequired,
   sequenceTitle: PropTypes.string.isRequired,
 };
-export default ContentLock;
+export default injectIntl(ContentLock);

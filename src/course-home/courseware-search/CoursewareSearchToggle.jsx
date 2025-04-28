@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useIntl } from '@edx/frontend-platform/i18n';
+import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
 import { ManageSearch } from '@openedx/paragon/icons';
 import { useDispatch } from 'react-redux';
@@ -7,8 +7,9 @@ import messages from './messages';
 import { useCoursewareSearchFeatureFlag, useCoursewareSearchParams } from './hooks';
 import { setShowSearch } from '../data/slice';
 
-const CoursewareSearchToggle = () => {
-  const intl = useIntl();
+const CoursewareSearchToggle = ({
+  intl,
+}) => {
   const dispatch = useDispatch();
   const enabled = useCoursewareSearchFeatureFlag();
   const { query } = useCoursewareSearchParams();
@@ -40,4 +41,8 @@ const CoursewareSearchToggle = () => {
   );
 };
 
-export default CoursewareSearchToggle;
+CoursewareSearchToggle.propTypes = {
+  intl: intlShape.isRequired,
+};
+
+export default injectIntl(CoursewareSearchToggle);

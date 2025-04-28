@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { camelCaseObject, getConfig } from '@edx/frontend-platform';
 import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
-import { FormattedMessage, useIntl } from '@edx/frontend-platform/i18n';
+import {
+  FormattedMessage, injectIntl, intlShape,
+} from '@edx/frontend-platform/i18n';
 import { Lightbulb, MoneyFilled } from '@openedx/paragon/icons';
 import {
   Alert, breakpoints, Icon, ModalDialog, Spinner, useWindowSize,
@@ -57,10 +59,9 @@ const CloseText = ({ intl }) => (
 );
 
 const StreakModal = ({
-  courseId, metadataModel, streakLengthToCelebrate, isStreakCelebrationOpen,
+  courseId, metadataModel, streakLengthToCelebrate, intl, isStreakCelebrationOpen,
   closeStreakCelebration, streakDiscountCouponEnabled, verifiedMode, ...rest
 }) => {
-  const intl = useIntl();
   const { org, celebrations, username } = useModel('courseHomeMeta', courseId);
   const factoid = getRandomFactoid(intl, streakLengthToCelebrate);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -248,6 +249,7 @@ StreakModal.propTypes = {
   courseId: PropTypes.string.isRequired,
   metadataModel: PropTypes.string.isRequired,
   streakLengthToCelebrate: PropTypes.number,
+  intl: intlShape.isRequired,
   isStreakCelebrationOpen: PropTypes.bool,
   closeStreakCelebration: PropTypes.func.isRequired,
   streakDiscountCouponEnabled: PropTypes.bool,
@@ -259,4 +261,4 @@ StreakModal.propTypes = {
   }),
 };
 
-export default StreakModal;
+export default injectIntl(StreakModal);

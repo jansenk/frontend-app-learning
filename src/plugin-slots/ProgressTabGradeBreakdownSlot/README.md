@@ -1,10 +1,6 @@
 # Progress Tab Grade Breakdown Slot
 
-### Slot ID: `org.openedx.frontend.learning.progress_tab_grade_breakdown.v1`
-
-### Slot ID Aliases
-* `progress_tab_grade_breakdown_slot`
-
+### Slot ID: `progress_tab_grade_breakdown_slot`
 ### Props:
 
 ## Description
@@ -23,7 +19,7 @@ import { useContextId } from './src/data/hooks';
 
 const config = {
   pluginSlots: {
-    'org.openedx.frontend.learning.progress_tab_grade_breakdown.v1': {
+    progress_tab_grade_breakdown_slot: {
       plugins: [
         {
           // Insert custom content after grade summary widget

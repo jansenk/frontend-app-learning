@@ -26,8 +26,7 @@ export const NextUnitTopNavTriggerSlot : React.FC<Props> = ({
   isAtTop,
 }) => (
   <PluginSlot
-    id="org.openedx.frontend.learning.next_unit_top_nav_trigger.v1"
-    idAliases={['next_unit_top_nav_trigger_slot']}
+    id="next_unit_top_nav_trigger_slot"
     pluginProps={{
       disabled,
       buttonText,

@@ -1,10 +1,6 @@
 # Progress Tab Related Links Slot
 
-### Slot ID: `org.openedx.frontend.learning.progress_tab_related_links.v1`
-
-### Slot ID Aliases
-* `progress_tab_related_links_slot`
-
+### Slot ID: `progress_tab_related_links_slot`
 ### Props:
 
 ## Description
@@ -23,7 +19,7 @@ import { useContextId } from './src/data/hooks';
 
 const config = {
   pluginSlots: {
-    'org.openedx.frontend.learning.progress_tab_related_links.v1': {
+    progress_tab_related_links_slot: {
       plugins: [
         {
           // Insert custom content after related links widget

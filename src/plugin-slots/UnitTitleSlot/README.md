@@ -1,10 +1,6 @@
 # Unit Title Slot
 
-### Slot ID: `org.openedx.frontend.learning.unit_title.v1`
-
-### Slot ID Aliases
-* `unit_title_slot`
-
+### Slot ID: `unit_title_slot`
 ### Props:
 * `unitId`
 * `unit`
@@ -26,7 +22,7 @@ import { DIRECT_PLUGIN, PLUGIN_OPERATIONS } from '@openedx/frontend-plugin-frame
 
 const config = {
   pluginSlots: {
-    'org.openedx.frontend.learning.unit_title.v1': {
+    unit_title_slot: {
       plugins: [
         {
           // Insert custom content after unit title

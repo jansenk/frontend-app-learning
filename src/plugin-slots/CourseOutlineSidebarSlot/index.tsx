@@ -6,8 +6,7 @@ import CourseOutlineTray from '../../courseware/course/sidebar/sidebars/course-o
 
 export const CourseOutlineSidebarSlot : React.FC = () => (
   <PluginSlot
-    id="org.openedx.frontend.learning.course_outline_sidebar.v1"
-    idAliases={['course_outline_sidebar_slot']}
+    id="course_outline_sidebar_slot"
     slotOptions={{
       mergeProps: true,
     }}

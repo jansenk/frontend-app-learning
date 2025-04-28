@@ -5,7 +5,7 @@ import { sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
 import { useIntl } from '@edx/frontend-platform/i18n';
 import { Button } from '@openedx/paragon';
-import { CourseOutlineTabNotificationsSlot } from '../../plugin-slots/CourseOutlineTabNotificationsSlot';
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 import { AlertList } from '../../generic/user-messages';
 
 import CourseDates from './widgets/CourseDates';
@@ -181,7 +181,13 @@ const OutlineTab = () => {
               />
             )}
             <CourseTools />
-            <CourseOutlineTabNotificationsSlot courseId={courseId} />
+            <PluginSlot
+              id="outline_tab_notifications_slot"
+              pluginProps={{
+                courseId,
+                model: 'outline',
+              }}
+            />
             <CourseDates />
             <CourseHandouts />
           </div>

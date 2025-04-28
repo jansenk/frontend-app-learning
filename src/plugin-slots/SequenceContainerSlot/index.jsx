@@ -3,8 +3,7 @@ import { PluginSlot } from '@openedx/frontend-plugin-framework';
 
 const SequenceContainerSlot = ({ courseId, unitId }) => (
   <PluginSlot
-    id="org.openedx.frontend.learning.sequence_container.v1"
-    idAliases={['sequence_container_slot']}
+    id="sequence_container_slot"
     pluginProps={{
       courseId,
       unitId,

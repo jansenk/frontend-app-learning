@@ -7,8 +7,7 @@ const HeaderSlot = ({
   courseOrg, courseNumber, courseTitle, showUserDropdown,
 }) => (
   <PluginSlot
-    id="org.openedx.frontend.layout.header_learning.v1"
-    idAliases={['header_slot']}
+    id="header_slot"
     slotOptions={{
       mergeProps: true,
     }}

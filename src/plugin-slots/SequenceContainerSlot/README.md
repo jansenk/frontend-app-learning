@@ -1,10 +1,6 @@
 # Sequence Container Slot
 
-### Slot ID: `org.openedx.frontend.learning.sequence_container.v1`
-
-### Slot ID Aliases
-* `sequence_container_slot`
-
+### Slot ID: `sequence_container_slot`
 ### Props:
 * `courseId`
 * `unitId`
@@ -24,7 +20,7 @@ import { DIRECT_PLUGIN, PLUGIN_OPERATIONS } from '@openedx/frontend-plugin-frame
 
 const config = {
   pluginSlots: {
-    'org.openedx.frontend.learning.sequence_container.v1': {
+    sequence_container_slot: {
       plugins: [
         {
           // Insert custom content after sequence content

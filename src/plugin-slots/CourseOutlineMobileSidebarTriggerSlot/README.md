@@ -1,9 +1,6 @@
 # Course Outline Mobile Sidebar Trigger Slot
 
-### Slot ID: `org.openedx.frontend.learning.course_outline_mobile_sidebar_trigger.v1`
-
-### Slot ID Aliases
-* `course_outline_mobile_sidebar_trigger_slot`
+### Slot ID: `course_outline_mobile_sidebar_trigger_slot`
 
 ## Description
 
@@ -24,7 +21,7 @@ import { DIRECT_PLUGIN, PLUGIN_OPERATIONS } from '@openedx/frontend-plugin-frame
 
 const config = {
   pluginSlots: {
-    'org.openedx.frontend.learning.course_outline_mobile_sidebar_trigger.v1': {
+    course_outline_mobile_sidebar_trigger_slot: {
       keepDefault: false,
       plugins: [
         {

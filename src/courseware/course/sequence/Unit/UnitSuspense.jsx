@@ -2,13 +2,14 @@ import React, { Suspense } from 'react';
 import PropTypes from 'prop-types';
 
 import { useIntl } from '@edx/frontend-platform/i18n';
+import { PluginSlot } from '@openedx/frontend-plugin-framework';
 
 import { useModel } from '@src/generic/model-store';
 import PageLoading from '@src/generic/PageLoading';
-import { GatedUnitContentMessageSlot } from '../../../../plugin-slots/GatedUnitContentMessageSlot';
 
 import messages from '../messages';
 import HonorCode from '../honor-code';
+import LockPaywall from '../lock-paywall';
 import * as hooks from './hooks';
 import { modelKeys } from './constants';
 
@@ -28,7 +29,14 @@ const UnitSuspense = ({
     <>
       {shouldDisplayContentGating && (
         <Suspense fallback={<PageLoading srMessage={formatMessage(messages.loadingLockedContent)} />}>
-          <GatedUnitContentMessageSlot courseId={courseId} />
+          <PluginSlot
+            id="gated_unit_content_message_slot"
+            pluginProps={{
+              courseId,
+            }}
+          >
+            <LockPaywall courseId={courseId} />
+          </PluginSlot>
         </Suspense>
       )}
       {shouldDisplayHonorCode && (

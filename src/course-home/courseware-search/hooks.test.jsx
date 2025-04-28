@@ -1,4 +1,4 @@
-import { renderHook, act, waitFor } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react-hooks';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { fetchCoursewareSearchSettings } from '../data/thunks';
@@ -38,13 +38,13 @@ describe('CoursewareSearch Hooks', () => {
 
     it('should return true if feature is enabled', async () => {
       const hook = await renderTestHook();
-      await waitFor(() => expect(fetchCoursewareSearchSettings).toBeCalledTimes(1));
+      await hook.waitFor(() => expect(fetchCoursewareSearchSettings).toBeCalledTimes(1));
       expect(hook.result.current).toBe(true);
     });
 
     it('should return false if feature is disabled', async () => {
       const hook = await renderTestHook(false);
-      await waitFor(() => expect(fetchCoursewareSearchSettings).toBeCalledTimes(1));
+      await hook.waitFor(() => expect(fetchCoursewareSearchSettings).toBeCalledTimes(1));
       expect(hook.result.current).toBe(false);
     });
   });
@@ -125,7 +125,7 @@ describe('CoursewareSearch Hooks', () => {
       it('should return the element bounding box', async () => {
         const hook = await renderTestHook({ elementId: 'test', mockedInfo });
 
-        await waitFor(() => expect(getBoundingClientRectSpy).toHaveBeenCalled());
+        hook.waitFor(() => expect(getBoundingClientRectSpy).toHaveBeenCalled());
 
         expect(hook.result.current).toEqual(mockedInfo);
       });

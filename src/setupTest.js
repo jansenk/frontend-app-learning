@@ -1,4 +1,5 @@
 import '@testing-library/jest-dom';
+import '@testing-library/jest-dom/extend-expect';
 import './courseware/data/__factories__';
 import './course-home/data/__factories__';
 import { getConfig, mergeConfig } from '@edx/frontend-platform';

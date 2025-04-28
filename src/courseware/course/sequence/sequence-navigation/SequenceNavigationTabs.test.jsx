@@ -1,7 +1,6 @@
 import React from 'react';
 import { Factory } from 'rosie';
-import { getAllByRole } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { act, fireEvent, getAllByRole } from '@testing-library/react';
 
 import { initializeTestStore, render, screen } from '../../../../setupTest';
 import SequenceNavigationTabs from './SequenceNavigationTabs';
@@ -49,18 +48,21 @@ describe('Sequence Navigation Tabs', () => {
 
   it('renders unit buttons and dropdown button', async () => {
     let container = null;
+    await act(async () => {
+      useIndexOfLastVisibleChild.mockReturnValue([-1, null, null]);
+      const booyah = render(<SequenceNavigationTabs {...mockData} />, { wrapWithRouter: true });
 
-    useIndexOfLastVisibleChild.mockReturnValue([-1, null, null]);
-    const booyah = render(<SequenceNavigationTabs {...mockData} />, { wrapWithRouter: true });
+      // wait for links to appear so we aren't testing an empty div
+      await screen.findAllByRole('link');
 
-    // wait for links to appear so we aren't testing an empty div
-    await screen.findAllByRole('link');
+      container = booyah.container;
 
-    container = booyah.container;
-
-    const dropdownToggle = container.querySelector('.dropdown-toggle');
-    await userEvent.click(dropdownToggle);
-
+      const dropdownToggle = container.querySelector('.dropdown-toggle');
+      // We need to await this click here, which requires us to await the `act` as well above.
+      // https://github.com/testing-library/react-testing-library/issues/535
+      // Without doing this, we get a warning about using `act` even though we are.
+      await fireEvent.click(dropdownToggle);
+    });
     const dropdownMenu = container.querySelector('.dropdown');
     const dropdownButtons = getAllByRole(dropdownMenu, 'link');
     expect(dropdownButtons).toHaveLength(unitBlocks.length);

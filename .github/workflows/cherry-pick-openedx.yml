@@ -1,0 +1,54 @@
+name: cherry-pick target commit from openedx repo into fork
+
+on: 
+  workflow_dispatch:
+    inputs:
+      targetCommitHash:
+        description: 'Hash of the target commit to pull into the edX fork'
+        required: true
+        type: string  
+
+jobs:
+  cherry-pick:
+    name: Cherry pick file
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+
+      - name: configure remotes
+        run: |
+          git remote add -f openedx git@github.com:openedx/frontend-app-learning.git
+          git remote rename origin edx
+
+      - name: 
+        run: git log -1 --remotes=openedx ${{ inputs.targetCommitHash }}
+
+      - name: check that commit exists and load commit info
+        id: commit-info
+        run: |
+          PRETTY=""
+          PRETTY+="hash=%h%n"
+          PRETTY+="commit_subject=%s%n"
+          PRETTY+="author_name=%an%n"
+          PRETTY+="author_email=%ae%n"
+          PRETTY+="date=%ad%n"
+
+          git log -1 --pretty=$PRETTY --remotes=openedx ${{ inputs.targetCommitHash }} >> $GITHUB_OUTPUT
+  
+      - name: Cherry pick target commit onto new branch
+        run: |
+          set -e
+          BRANCH_NAME="${{ github.actor }}/cherry-pick-${{ steps.commit-info.outputs.hash }}"
+          git checkout -b $BRANCH_NAME
+          git cherry-pick ${{ inputs.targetCommitHash }}
+          git commit -m "${{ steps.commit-info.outputs.commit_subject }}"
+          git push -u edx $BRANCH_NAME
+
+      - name: Open pull request
+        run: |
+          BODY=""
+          BODY+="This PR cherry-picks commit ${{ steps.commit-info.outputs.hash }} from the openedx repo into the edx fork.\n\n"
+          BODY+="\tAuthor: ${{ steps.commit-info.outputs.author_name }} <${{ steps.commit-info.outputs.author_email }}>\n"
+          BODY+="\tDate: ${{ steps.commit-info.outputs.date }}\n"
+          gh pr create --title "${{ steps.commit-info.outputs.commit_subject }}" --body $BODY

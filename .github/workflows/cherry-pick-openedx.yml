@@ -16,8 +16,10 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v5
 
-      - name: configure remotes
+      - name: configure git
         run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor_id }}+${{ github.actor }}@users.noreply.github.com"
           git remote add -f openedx https://github.com/openedx/frontend-app-learning.git
           git remote rename origin edx
 

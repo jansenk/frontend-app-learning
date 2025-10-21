@@ -45,7 +45,7 @@ jobs:
 
       - name: Open pull request
         env:
-            GH_TOKEN: ${{ github.GITHUB_TOKEN }}
+            GH_TOKEN: ${{ github.token }}
         run: |
           BODY=$(cat <<-EOF 
             This PR cherry-picks commit ${{ steps.commit-info.outputs.hash }} from the openedx repo into the edx fork.

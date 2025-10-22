@@ -59,13 +59,12 @@ jobs:
             Date: ${{ steps.commit-info.outputs.date }}
           EOF
           )
-          gh pr create --title "${{ steps.commit-info.outputs.commit_subject }}" --body "$BODY" &> pr_creation_output
-          STATUS=$?
-          if [[ STATUS != 0 ]]; then
+          gh pr create --title "${{ steps.commit-info.outputs.commit_subject }}" --body "$BODY" 1> pr_url 2> pr_errors
+          if [[ $? != 0 ]]; then
               echo "## Pull Request Created! 🎉" >> $GITHUB_STEP_SUMMARY
+              echo $(cat pr_url) >> $GITHUB_STEP_SUMMARY
           else
               echo "## Pull request creation failed" >> $GITHUB_STEP_SUMMARY
+              echo $(cat pr_errors) >> $GITHUB_STEP_SUMMARY
+              exit 1
           fi
-          
-          echo $(cat pr_creation_output) >> $GITHUB_STEP_SUMMARY
-          exit $STATUS

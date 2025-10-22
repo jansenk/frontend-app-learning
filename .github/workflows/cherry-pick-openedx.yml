@@ -60,7 +60,7 @@ jobs:
           EOF
           )
           gh pr create --title "${{ steps.commit-info.outputs.commit_subject }}" --body "$BODY" 1> pr_url 2> pr_errors
-          if [[ $? != 0 ]]; then
+          if [[ $? == 0 ]]; then
               echo "## Pull Request Created! 🎉" >> $GITHUB_STEP_SUMMARY
               echo $(cat pr_url) >> $GITHUB_STEP_SUMMARY
           else

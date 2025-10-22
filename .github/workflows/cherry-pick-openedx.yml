@@ -43,11 +43,15 @@ jobs:
           if [[ ${PIPESTATUS[0]} != 0 ]]; then
             echo "## Unable to cherry-pick commit" >> $GITHUB_STEP_SUMMARY
             cat cherry_pick_output >> $GITHUB_STEP_SUMMARY
-            echo $(cat $GITHUB_STEP_SUMMARY)
             exit 1
           fi
 
-          git push -u edx $BRANCH_NAME
+          git push -u edx $BRANCH_NAME 2>&1 | tee push_output
+          if [[ ${PIPESTATUS[0]} != 0 ]]; then
+            echo "## Unable to push to branch" >> $GITHUB_STEP_SUMMARY
+            cat push_output >> $GITHUB_STEP_SUMMARY
+            exit 1
+          fi
 
       - name: Open pull request
         env:

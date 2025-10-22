@@ -41,9 +41,10 @@ jobs:
           BRANCH_NAME="${{ github.actor }}/cherry-pick-${{ steps.commit-info.outputs.hash }}"
           git checkout -b $BRANCH_NAME
           git cherry-pick ${{ inputs.targetCommitHash }} &> cherry_pick_errors
-          if [[ $? != 0]]; then
-            echo "## Unable to cherry-pick commit" >> $GITHUB_STEP_SUMMARY
-            cat cherry_pick_errors >> $GITHUB_STEP_SUMMARY
+          if [[ $? != 0 ]]; then
+            echo "## Unable to cherry-pick commit" >> $GITHUB_STEP_SUMMARY;
+            cat cherry_pick_errors >> $GITHUB_STEP_SUMMARY;
+          fi;
 
           git push -u edx $BRANCH_NAME
 

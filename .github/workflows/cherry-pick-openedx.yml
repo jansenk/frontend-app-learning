@@ -39,10 +39,12 @@ jobs:
         run: |
           BRANCH_NAME="${{ github.actor }}/cherry-pick-${{ steps.commit-info.outputs.hash }}"
           git checkout -b $BRANCH_NAME
-          git cherry-pick ${{ inputs.targetCommitHash }} &> cherry_pick_errors
+
+          set -o pipefail
+          git cherry-pick ${{ inputs.targetCommitHash }} 2>&1 | tee cherry_pick_output
           if [[ $? != 0 ]]; then
             echo "## Unable to cherry-pick commit" >> $GITHUB_STEP_SUMMARY
-            cat cherry_pick_errors >> $GITHUB_STEP_SUMMARY
+            cat cherry_pick_output >> $GITHUB_STEP_SUMMARY
             exit 1
           fi
 
